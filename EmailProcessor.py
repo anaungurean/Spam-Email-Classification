@@ -14,16 +14,19 @@ class EmailProcessor:
     def __init__(self, folder_path):
         self.folder_path = folder_path
         self.data_processed = self.load_data()
-        self.save_to_csv(self.data_processed, 'train_data_processed.csv')
+        self.save_to_csv(self.data_processed, 'test_data_processed.csv')
 
     def load_data(self):
         data = []
         root_folder_path = self.folder_path
         for root, dirs, files in os.walk(root_folder_path):
+            print(root)
             for file in files:
                 file_path = os.path.join(root, file)
+                print(file_path)
                 with open(file_path, 'r', encoding='utf-8') as f:
-                  if 'part10' not in file_path:
+                  print(file_path)
+                  if 'part10' in file_path:
                     content = f.read()
                     is_spam = 'spm' in file
                     processed_text = self.process_text(content)
@@ -59,4 +62,8 @@ class EmailProcessor:
     def save_to_csv(self, df, file_name):
         df.to_csv(file_name, index=False)
         print(f"Saved to {file_name}")
+
+if __name__ == '__main__':
+    folder_path = "lingspam_public"
+    processor = EmailProcessor(folder_path)
 
