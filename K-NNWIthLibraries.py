@@ -44,14 +44,41 @@ class KNNClassifierWithLibraries:
         X_test = self.vectorizer.transform(self.test_data['text'])
         y_test = self.test_data['is_spam'].astype('int')
         y_pred_test = self.predict(X_test)
+
+        misclassified_indices = [i for i, (true, pred) in enumerate(zip(y_test, y_pred_test)) if true != pred]
+        self.plot_misclassified_instances(misclassified_indices, y_test, y_pred_test)
+        self.plot_misclassification_pie_chart(misclassified_indices, y_test, y_pred_test)
+
         self.accuracy = accuracy_score(y_test, y_pred_test)
         print(f"Acuratețea la testare obținută este de: {self.accuracy * 100:.2f}%")
+
+    def plot_misclassified_instances(self, misclassified_indices, y_test, y_pred_test):
+        plt.figure(figsize=(10, 6))
+        plt.scatter(misclassified_indices, y_pred_test[misclassified_indices], color='red', marker='x', label='Clasificate greșit')
+        plt.scatter(misclassified_indices, y_test[misclassified_indices], color='blue', marker='o', label='Valori reale')
+        plt.title('Clasificare greșită pe setul de date de testare \n (Alg k-NN))')
+        plt.xlabel('Index instanță')
+        plt.ylabel('Etichetă (0 - Non-Spam, 1 - Spam)')
+        plt.legend()
+        plt.show()
+
+    def plot_misclassification_pie_chart(self, misclassified_indices, y_test, y_pred_test):
+        correct_count = len(y_test) - len(misclassified_indices)
+        misclassified_count = len(misclassified_indices)
+        proportions = [correct_count, misclassified_count]
+
+        plt.pie(proportions, labels=['Corect', 'Greșit'], autopct='%1.1f%%', colors=['#33B5E5', '#FF5733'])
+        plt.title('Procentaj clasificare corectă/greșită (Alg k-NN)')
+        plt.show()
+
 
     def cross_validate(self, cv=5):
         X, y = self.preprocess_data()
         scores = cross_val_score(self.classifier, X, y, cv=cv)
         mean_accuracy = scores.mean()
         print(f"Acuratețea la cross-validation obținută este de: {mean_accuracy * 100:.2f}%")
+
+
 
 
 if __name__ == '__main__':
