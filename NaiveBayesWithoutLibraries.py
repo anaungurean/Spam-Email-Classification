@@ -2,7 +2,7 @@ import csv
 from collections import defaultdict
 import matplotlib.pyplot as plt
 
-class NaiveBayesSpamClassifier:
+class NaiveBayesWithoutLibraries:
     def __init__(self, train_file_name='train_data_processed.csv', test_file_name='test_data_processed.csv'):
         self.train_file_name = train_file_name
         self.test_file_name = test_file_name
@@ -108,11 +108,13 @@ class NaiveBayesSpamClassifier:
 
         self.train(self.train_data)
         train_error_rate = self.calculate_error(self.train_data)
+        print('Bayes Naiv Spam Clasificator implementat fără biblioteci externe')
+        print()
         print(f"Acuratețea la antrenare obținută este de: {100 - train_error_rate * 100:.2f}%")
 
 
 if __name__ == '__main__':
-    classifier = NaiveBayesSpamClassifier()
+    classifier = NaiveBayesWithoutLibraries()
     classifier.evaluate_on_train_data()
     classifier.cross_validate()
     classifier.evaluate_on_test_data()
