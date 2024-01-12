@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, cross_val_score
 import matplotlib.pyplot as plt
 
-class ID3ClassifierWithLibraries:  # Modificare 2
+class ID3ClassifierWithLibraries:
     def __init__(self, file_name='train_data_processed.csv', test_file_name='test_data_processed.csv'):
         self.train_file_name = file_name
         self.test_file_name = test_file_name

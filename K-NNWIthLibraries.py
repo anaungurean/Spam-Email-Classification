@@ -71,14 +71,11 @@ class KNNClassifierWithLibraries:
         plt.title('Procentaj clasificare corectă/greșită (Alg k-NN)')
         plt.show()
 
-
     def cross_validate(self, cv=5):
         X, y = self.preprocess_data()
         scores = cross_val_score(self.classifier, X, y, cv=cv)
         mean_accuracy = scores.mean()
         print(f"Acuratețea la cross-validation obținută este de: {mean_accuracy * 100:.2f}%")
-
-
 
 
 if __name__ == '__main__':

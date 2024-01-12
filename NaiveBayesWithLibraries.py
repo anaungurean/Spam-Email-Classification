@@ -59,7 +59,7 @@ class NaiveBayesWithLibraries:
         plt.figure(figsize=(10, 6))
         plt.scatter(misclassified_indices, y_pred_test[misclassified_indices], color='red', marker='x', label='Clasificate greșit')
         plt.scatter(misclassified_indices, y_test[misclassified_indices], color='blue', marker='o', label='Valori reale')
-        plt.title('Clasificare greșită pe setul de date de testare \n (Alg Bayes Naiv utilizand biblioteci externe)')
+        plt.title('Clasificare greșită pe setul de date de testare \n (Alg Bayes Naiv)')
         plt.xlabel('Index instanță')
         plt.ylabel('Etichetă (0 - Non-Spam, 1 - Spam)')
         plt.legend()
@@ -111,6 +111,6 @@ if __name__ == '__main__':
     classifier.evaluate_on_train_data()
     classifier.cross_validate()
     classifier.evaluate_on_test_data()
-
+    #
     # classifier.plot_spam_word_frequency()
     # classifier.plot_non_spam_word_frequency()
